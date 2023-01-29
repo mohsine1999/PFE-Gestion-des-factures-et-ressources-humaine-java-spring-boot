@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+<head>
+    <style>
+
+
+        .btnS {
+            text-align: center;
+            align-content: center;
+        }
+        .btn {
+            text-align: center;
+            align-content: center;
+        }
+
+
+         body {
+             background-image: linear-gradient(to top, rgba(0,0,0,0.5)50%,rgba(0,0,0,0.5)50%), url("https://www.linkpicture.com/q/Respohome.png");
+             background-attachment: fixed;
+             background-repeat: no-repeat;
+             background-size: 100% 100%;
+
+
+
+         }
+        .navbar-nav a{
+            text-decoration: none;
+            color: #000000;
+            font-family: Arial;
+            transition: 0.4s ease-in-out;
+        }
+
+        .navbar-nav a:hover{
+            color: #0080FF;
+        }
+
+        .navbar-navv btn{
+            text-decoration-color: aliceblue;
+        }
+
+        .btnS a{
+            text-decoration: none;
+            color: #ffff;
+            font-family: Arial;
+            transition: 0.4s ease-in-out;
+        }
+
+        .btnS a:hover{
+            color: #0080FF;
+        }
+
+
+
+    </style>
+    <meta charset="UTF-8">
+    <!-- CSS only -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
+
+    <title>Accueil Responsable </title>
+</head>
+<body style=" background-color: rgba(153,148,148,0.88);">
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <div class="container-fluid">
+        <a href="/" class="navbar-brand">Reflexe Topo</a>
+        <button type="button" class="navbar-toggler" data-bs-toggle="collapse" data-bs-target="#navbarCollapse">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarCollapse">
+            <div class="navbar-nav">
+                <a href="/" class="nav-item nav-link active">Accueil</a>
+                <a href="/ajouterEmp" class="nav-item nav-link">La gestion des employés</a>
+                <a href="/gererFC" class="nav-item nav-link">La gestion des factures clients</a>
+                <a href="/gererFS" class="nav-item nav-link">La gestion des factures services</a>
+                <a href="/gain" class="nav-item nav-link " tabindex="-1">La consultation des gains</a>
+            </div>
+            <div class="navbar-navv ms-auto">
+                <a sec:authorize="isAuthenticated()" th:href="@{/logout}" class="btn btn-danger">Déconnecter</a>
+            </div>
+        </div>
+    </div>
+</nav>
+<br>
+<div class="btnS">
+    <a  href = "/ajouterEmp" class="btn btn-dark btn-lg" style="height:50px; width:400px;" > La gestion des employés >> </a><br><br>
+    <br><br>
+    <a  href = "/gererFC" class="btn btn-dark btn-lg" style="height:50px; width:400px;" > La gestion des factures clients >> </a><br><br>
+    <br><br>
+    <a  href = "/gererFS" class="btn btn-dark btn-lg" style="height:50px; width:400px;" > La gestion des factures services >> </a><br><br>
+    <br><br>
+    <a  href = "/gain" class="btn btn-dark btn-lg" style="height:50px; width:400px;" > La consultation des gains >> </a><br><br>
+</div>
+
+<a th:href="@{/}" class="btn btn-dark"> << Accueil</a>
+
+
+
+
+
+</body>
+</html>

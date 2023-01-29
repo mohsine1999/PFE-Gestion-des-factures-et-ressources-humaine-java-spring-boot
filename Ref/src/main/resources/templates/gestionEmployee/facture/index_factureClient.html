@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+<head>
+    <meta charset="utf-8"/>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
+    <link rel="stylesheet"
+          href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
+          integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO"
+          crossorigin="anonymous">
+    <title>La liste des factures clients</title>
+</head>
+
+
+<body>
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <div class="container-fluid">
+        <a href="/" class="navbar-brand">Reflexe Topo</a>
+        <button type="button" class="navbar-toggler" data-bs-toggle="collapse" data-bs-target="#navbarCollapse">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarCollapse">
+            <div class="navbar-nav">
+                <a href="/EmployeHome" class="nav-item nav-link active">Accueil</a>
+                <a href="/gererClient" class="nav-item nav-link">La gestion des clients</a>
+                <a href="/ajouterFC" class="nav-item nav-link">L'ajout d'une nouvelle facture client</a>
+
+            </div>
+            <div class="navbar-nav ms-auto">
+                <a sec:authorize="isAuthenticated()" th:href="@{/logout}" class="btn btn-danger">Déconnecter</a>
+            </div>
+        </div>
+    </div>
+</nav>
+<div class="container my-2">
+    <h1>La liste des factures clients</h1> <a th:href = "@{/ajoutFactureClient}" class="btn btn-dark"> Ajouter une facture client </a><br><br>
+    <table border="5" class = "table table-striped table-responsive-md"s>
+        <thead class="thead-dark" >
+        <tr>
+            <th>Numéro de facture </th>
+            <th>Désignation </th>
+            <th>Quantité </th>
+            <th>Prix_ht </th>
+            <th>Total_ht </th>
+            <th>Total_ttc </th>
+            <th>Taxe </th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="f : ${listFC}">
+            <td th:text= "${f.getNum_factureFC()}"></td>
+            <td th:text= "${f.getDesignation()}"></td>
+            <td th:text= "${f.getQuantitee()}"></td>
+            <td th:text= "${f.getPrix_ht()}"></td>
+            <td th:text= "${f.getTotal_ht()}"></td>
+            <td th:text= "${f.getTotal_ttc()}"></td>
+            <td th:text= "${f.getTaxe()}"></td>
+
+        </tr>
+        </tbody>
+    </table>
+    <a th:href = "@{/EmployeHome}" class="btn btn-dark " style="position: absolute" > < Retour </a>
+</body>
+</html>

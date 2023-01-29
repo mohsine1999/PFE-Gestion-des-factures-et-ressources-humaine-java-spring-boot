@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+<head>
+    <meta charset="utf-8"/>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
+    <link rel="stylesheet"
+          href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
+          integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO"
+          crossorigin="anonymous">
+    <title>La liste des client</title>
+</head>
+
+
+<body>
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <div class="container-fluid">
+        <a href="/" class="navbar-brand">Reflexe Topo</a>
+        <button type="button" class="navbar-toggler" data-bs-toggle="collapse" data-bs-target="#navbarCollapse">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarCollapse">
+            <div class="navbar-nav">
+                <a href="/EmployeHome" class="nav-item nav-link active">Accueil</a>
+                <a href="/gererClient" class="nav-item nav-link">La gestion des clients</a>
+                <a href="/ajouterFC" class="nav-item nav-link">L'ajout d'une nouvelle facture client</a>
+
+            </div>
+            <div class="navbar-nav ms-auto" th:align="right">
+                <a sec:authorize="isAuthenticated()" th:href="@{/logout}" class="btn btn-danger" >Déconnecter</a>
+            </div>
+        </div>
+    </div>
+</nav>
+<div  th:align="right" >
+<form method="get" th:action="@{/gererClient}" th:align="right" class="btn btn-dark "  >
+    <label>Ice : </label>
+    <input type="text" name="ice"  >
+    <button type="submit" class="btn btn-outline-warning "  >Chercher</button>
+</form>
+</div>
+
+<div class="container my-2">
+    <h1>La liste des clients</h1> <a th:href = "@{/showNewClientForm}" class="btn btn-dark btn-sm mb-3"> Ajouter un client </a>
+    <table border="5" class = "table table-striped table-responsive-md"s>
+        <thead class="thead-dark">
+        <tr>
+            <th>ICE </th>
+            <th>Nom et Prénom </th>
+            <th>CIN </th>
+            <th>Adresse</th>
+            <th>Actions</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="client : ${list_CL}">
+            <td th:text= "${client.ice}"></td>
+            <td th:text= "${client.nom_prenom}"></td>
+            <td th:text= "${client.cin}"></td>
+            <td th:text= "${client.adresse}"></td>
+
+
+            <td><a th:href="@{/showFormForUpdateClient/{id}(id=${client.id})}" class="btn btn-dark">Modifier</a>
+                <a th:href="@{/deleteClient/{id}(id=${client.id})}" class="btn btn-danger"
+                   th:data-confirm-delete="|Vous êtes sûr ?|"
+                   onclick="if (!confirm(this.getAttribute('data-confirm-delete'))) return false"
+                >Supprimer</a>
+                <a th:href="@{NewFactureFS/{id}(id=${client.id})}" class="btn btn-dark">ajouter facture service</a>
+
+            </td>
+        </tr>
+        </tbody>
+    </table>
+    <ul class="nav nav-pills">
+        <li th:each="page,status:${pages}">
+            <a th:class="${status.index==currentPage?'btn btn-info ms-1':'btn btn-outLine-info '}"
+               th:text="${status.index}"
+               th:href="@{gererClient(page=${status.index})}  "></a>
+        </li>
+    </ul>
+    </div>
+<a th:href = "@{/EmployeHome}" class="btn btn-dark "  > < Retour </a>
+</body>
+</html>

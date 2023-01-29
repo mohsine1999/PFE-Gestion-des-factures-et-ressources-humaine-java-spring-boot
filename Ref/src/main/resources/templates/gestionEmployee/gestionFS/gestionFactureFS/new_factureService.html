@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="fr" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+<head>
+    <meta charset="utf-8"/>
+    <title> Nouvelle facture service</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
+    <link rel="stylesheet"
+          href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
+          integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO"
+          crossorigin="anonymous">
+</head>
+<body style=" background-color: lightgrey;" >
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <div class="container-fluid">
+        <a href="/" class="navbar-brand">Reflexe Topo</a>
+        <button type="button" class="navbar-toggler" data-bs-toggle="collapse" data-bs-target="#navbarCollapse">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarCollapse">
+            <div class="navbar-nav">
+                <a href="/EmployeHome" class="nav-item nav-link active">Accueil</a>
+                <a href="/gererClient" class="nav-item nav-link">La gestion des clients</a>
+                <a href="/ajouterFC" class="nav-item nav-link">L'ajout d'une nouvelle facture client</a>
+
+            </div>
+            <div class="navbar-nav ms-auto" th:align="right">
+                <a sec:authorize="isAuthenticated()" th:href="@{/logout}" class="btn btn-danger" >Déconnecter</a>
+            </div>
+        </div>
+    </div>
+</nav>
+<div class="container">
+    <h1>les factures Service</h1>
+    <hr>
+    <h2>L'ajout d'une facture service</h2>
+
+    <script type="text/javascript">
+        function Calculer(){
+            document.getElementById("total_ht").value= document.getElementById("quantitee").value * document.getElementById("prix_ht").value;
+            document.getElementById("total_ttc").value= document.getElementById("total_ht").value * (1+document.getElementById("taxe").value/100);
+        }
+
+
+
+
+    </script>
+
+    <form action="#" th:action="@{/saveFactureService}" th:object="${dataPojo}" method="POST">
+
+        <input type="hidden"   th:field="*{idC}"  />
+
+        Numéro de facture : <input type="text" th:field="*{num_factureFS}"  placeholder="Numéro de facture" class="form-control mb-4 col-4">
+
+        Désignation : <input type="text" th:field="*{designationFS}" placeholder="Désignation" class="form-control mb-4 col-4">
+
+        Quantité : <input type="text" name="quantitee" th:field="*{quantitee}"  class="form-control mb-4 col-4">
+
+        Prix_ht : <input type="text" name="prix_ht" th:field="*{prix_ht}"  class="form-control mb-4 col-4">
+
+        <input type="hidden" name="total_ht" th:field="*{total_ht}"  class="form-control mb-4 col-4">
+
+        <input type="hidden" name="total_ttc" th:field="*{total_ttc}" placeholder="" class="form-control mb-4 col-4">
+
+        Taxe :<input type="text" name="taxe" th:field="*{taxe}" placeholder="Le role" class="form-control mb-4 col-4">
+
+        Type de paiement : <select th:field="*{type_de_paiement}" >
+        <nom>type_de_paiement</nom>
+        <libellé>Type de paiement : </libellé>
+        <option value="Chèque">Chèque</option>
+        <option value="CB">Carte Bancaire</option>
+        <option value="Vérement">Versement</option>
+        <option value="test">Espèce</option>
+    </select>
+        <br>
+        <br>
+        <br>
+
+
+
+        <button type="submit" onclick="Calculer();" class="btn btn-dark"> Ajouter Facture Service</button>
+    </form>
+
+    <hr>
+
+    <a th:href = "@{/gererClient}" class="btn btn-dark "  > < Retour </a>
+</div>
+</body>
+</html>

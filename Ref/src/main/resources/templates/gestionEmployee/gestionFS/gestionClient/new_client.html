@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="fr" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+<head>
+    <meta charset="utf-8"/>
+    <title>Nouvel client</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
+    <link rel="stylesheet"
+          href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
+          integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO"
+          crossorigin="anonymous">
+</head>
+<body style=" background-color: lightgrey;" >
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <div class="container-fluid">
+        <a href="/" class="navbar-brand">Reflexe Topo</a>
+        <button type="button" class="navbar-toggler" data-bs-toggle="collapse" data-bs-target="#navbarCollapse">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarCollapse">
+            <div class="navbar-nav">
+                <a href="/EmployeHome" class="nav-item nav-link active">Accueil</a>
+                <a href="/gererClient" class="nav-item nav-link">La gestion des clients</a>
+                <a href="/ajouterFC" class="nav-item nav-link">L'ajout d'une nouvelle facture client</a>
+
+            </div>
+            <div class="navbar-nav ms-auto" th:align="right">
+                <a sec:authorize="isAuthenticated()" th:href="@{/logout}" class="btn btn-danger" >Déconnecter</a>
+            </div>
+        </div>
+    </div>
+</nav>
+<div class="container">
+    <h1>Gestion des clients</h1>
+    <hr>
+    <h2>L'ajout d'un nouvel client</h2>
+
+    <form action="#" th:action="@{/saveClientFS}" th:object="${ClientN}" method="POST">
+
+        <input type="text" th:field="*{ice}" placeholder="ice" class="form-control mb-4 col-4">
+
+        <input type="text" th:field="*{nom_prenom}" placeholder="Nom et Prénom" class="form-control mb-4 col-4">
+
+        <input type="text" th:field="*{cin}" placeholder="cin" class="form-control mb-4 col-4">
+
+        <input type="text" th:field="*{adresse}" placeholder="Adresse" class="form-control mb-4 col-4">
+
+        <button type="submit" class="btn btn-dark"> Ajouter le client</button>
+    </form>
+
+    <hr>
+
+    <a th:href = "@{/gererClient}" class="btn btn-dark "  > < Retour </a>
+</div>
+</body>
+</html>

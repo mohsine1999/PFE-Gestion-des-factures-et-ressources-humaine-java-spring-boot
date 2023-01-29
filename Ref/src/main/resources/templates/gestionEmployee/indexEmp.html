@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+<head>
+    <meta charset="utf-8"/>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
+    <link rel="stylesheet"
+          href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
+          integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO"
+          crossorigin="anonymous">
+    <title>Home </title>
+</head>
+
+
+<body>
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <div class="container-fluid">
+        <a href="/" class="navbar-brand">Reflexe Topo</a>
+        <button type="button" class="navbar-toggler" data-bs-toggle="collapse" data-bs-target="#navbarCollapse">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarCollapse">
+            <div class="navbar-nav">
+                <a href="/RespoHome" class="nav-item nav-link active">Accueil</a>
+                <a href="/ajouterEmp" class="nav-item nav-link">La gestion des employés</a>
+                <a href="/gererFC" class="nav-item nav-link">La gestion des factures clients</a>
+                <a href="/gererFS" class="nav-item nav-link">La gestion des factures services</a>
+                <a href="/gain" class="nav-item nav-link " tabindex="-1">La consultation des gains</a>
+            </div>
+            <div class="navbar-nav ms-auto">
+                <a sec:authorize="isAuthenticated()" th:href="@{/logout}" class="btn btn-danger">Déconnecter</a>
+            </div>
+        </div>
+    </div>
+</nav>
+<div th:align="right">
+<form method="get" th:action="@{/ajouterEmp}" th:align="right" class="btn btn-dark">
+    <label>Email : </label>
+    <input type="text" name="email">
+    <button type="submit" class="btn btn-outline-warning">Chercher</button>
+</form>
+</div>
+
+<div class="container my-2">
+    <h1>La liste des employés</h1> <a th:href = "@{/showNewEmployeeForm}" class="btn btn-dark btn-sm mb-3"> Ajouter un employé </a>
+    <table border="1" class = "table">
+        <thead class="table-dark">
+        <tr>
+            <th scope="col">Nom d'utilisateur </th>
+            <th scope="col">Mot de passe </th>
+            <th scope="col">Email </th>
+            <th scope="col">Numéro téléphone</th>
+            <th scope="col">Role </th>
+            <th scope="col">Actions </th>
+
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="employee : ${listEmployees}">
+            <td th:text= "${employee.getNom_utilisateur()}"></td>
+            <td th:text= "${employee.getMot_de_passe()}"></td>
+            <td th:text= "${employee.getEmail()}"></td>
+            <td th:text= "${employee.getNumero_tele()}"></td>
+            <td th:text= "${employee.getRoleEmp()}"></td>
+            <td><a th:href="@{/showFormForUpdate/{id}(id=${employee.id})}" class="btn btn-dark">Modifier</a>
+                <a th:href="@{/deleteEmployee/{id}(id=${employee.id})}" class="btn btn-danger"
+                   th:data-confirm-delete="|Vous êtes sûr ?|"
+                   onclick="if (!confirm(this.getAttribute('data-confirm-delete'))) return false"
+                >Supprimer</a>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+    <ul class="nav nav-pills">
+        <li th:each="page,status:${pages}">
+            <a th:class="${status.index==currentPage?'btn btn-info ms-1':'btn btn-outLine-info '}"
+               th:text="${status.index}"
+               th:href="@{ajouterEmp(page=${status.index})}  "></a>
+        </li>
+    </ul>
+    </div>
+
+<a th:href = "@{/RespoHome}" class="btn btn-dark" > < Retour </a>
+</body>
+</html>

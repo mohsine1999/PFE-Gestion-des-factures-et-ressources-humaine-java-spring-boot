@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+<head>
+    <style>
+        body {
+            background-image: url("https://www.linkpicture.com/q/Emphome.png");
+            background-attachment: fixed;
+            background-repeat: no-repeat;
+            background-size: 100% 100%;
+
+        }
+    </style>
+    <meta charset="UTF-8">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
+
+    <title>Employe Home</title>
+</head>
+
+<body  >
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <div class="container-fluid">
+        <a href="/" class="navbar-brand">Reflexe Topo</a>
+        <button type="button" class="navbar-toggler" data-bs-toggle="collapse" data-bs-target="#navbarCollapse">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarCollapse">
+            <div class="navbar-nav">
+                <a href="/" class="nav-item nav-link active">Accueil</a>
+                <a href="/gererClient" class="nav-item nav-link">La gestion des clients</a>
+                <a href="/ajouterFC" class="nav-item nav-link">L'ajout d'une nouvelle facture client</a>
+
+            </div>
+            <div class="navbar-nav ms-auto">
+                <a sec:authorize="isAuthenticated()" th:href="@{/logout}" class="btn btn-danger">Déconnecter</a>
+            </div>
+        </div>
+    </div>
+</nav>
+
+
+<br><br><br><br>
+<center>
+<a  href = "/ajouterFC" class="btn btn-dark btn-lg" style="box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19); height:50px; width:400px;"> Ajouter une facture client >> </a><br><br>
+<br><br>
+<a  href = "/gererClient" class="btn btn-dark btn-lg"style="box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19); height:50px; width:400px;"> Ajouter un client >> </a><br><br>
+</center>
+
+<a th:href = "@{/}" class="btn btn-dark btn-lg" style="position:absolute;"> < Accueil </a>
+</body>
+</html>
