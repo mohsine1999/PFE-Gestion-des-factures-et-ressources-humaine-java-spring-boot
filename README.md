@@ -1,4 +1,4 @@
-# PFE
+# PFE : Gestion des factures et ressources humaines 
 Projet Fin d'Etudes PFE Licence Sciences et Techniques à la faculté des Sciences et Techniques de Beni Mellal
 
 ![image](https://user-images.githubusercontent.com/75868840/215358919-9b5c8258-da16-4402-9b77-2853c56d51f2.png)
